@@ -38,17 +38,16 @@ export class UsuarioController {
   async actualizar(payload: {
     id: number;
     nombre: string;
-    descripcion: string;
-    precio: number;
-    cantidad_disponible: number;
+    email: string;
+    telefono: string;
   }) {
     try {
-      const producto = new Producto({
+      const usuario = new Usuario({
         id: payload.id,
         nombre: payload.nombre,
-        descripcion: payload.descripcion,
-        precio: payload.precio,
-        cantidad_disponible: payload.cantidad_disponible,
+        email: payload.email,
+        telefono: payload.telefono,
+        
       });
       const resultado = await this.repository.modificarProductos(producto);
       if (resultado.affectedRows === 1) {
