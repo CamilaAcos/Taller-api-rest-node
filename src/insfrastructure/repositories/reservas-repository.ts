@@ -26,16 +26,21 @@ export class ReservaRepository {
     async modificarReserva( reserva: Reserva) {
         const connection = getPoolConnection();
         const queryUsuarioId = `SELECT id FROM usuarios WHERE id  = usuario_id`
-        const querySql = `UPDATE reservas SET usuario_id = ?, vehiculo_id = ?, year = ? WHERE id = ? `;
-        const values =  [
-            reserva.usuario_id,
-            reserva.vehiculo_id,
-            reserva.fecha,
-            reserva.id,
-        ];
-        const result = await connection.query(querySql,values);
+        if( queryUsuarioId) {
+            const querySql = `UPDATE reservas SET usuario_id = ?, vehiculo_id = ?, year = ? WHERE id = ? `;
+            const values =  [
+                reserva.usuario_id,
+                reserva.vehiculo_id,
+                reserva.fecha,
+                reserva.id,
+            ];
+            const result = await connection.query(querySql,values);
         return result [0];
 
+        }else{
+            console.log("Usuario_id no existe")
+            return
+        }
     }
 
     async eliminarReserva (idReserva: number) {
