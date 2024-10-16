@@ -16,7 +16,7 @@ export class UsuarioRepository {
 
     } 
 
-    async obtenarUsuarios() {
+    async obtenerUsuarios() {
         const connection = getPoolConnection ();
         const querySql = `SELECT * FROM usuarios`;
         const result = await connection.query (querySql);
@@ -24,6 +24,24 @@ export class UsuarioRepository {
     }
 
     async modificarUsuario( usuario: Usuario) {
+        const connection = getPoolConnection();
+        const querySql = `UPDATE usuarios SET nombre = ?, email = ?, telefono = ? where id = ? `;
+        const values =  [
+            usuario.nombre,
+            usuario.email,
+            usuario.telefono,
+            usuario.id
+        ];
+        const result = await connection.query(querySql,values);
+        return result [0];
+        
+    }
 
+    async eliminarUsuario (idUsuario: number) {
+        const connection = getPoolConnection();
+        const querySql = `DELETE FROM usuarios WHERE id = ?`;
+        const values = [idUsuario];
+        const result = await connection.query(querySql, values);
+        return result [0];
     }
 }
