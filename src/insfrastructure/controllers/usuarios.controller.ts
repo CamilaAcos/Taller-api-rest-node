@@ -24,13 +24,13 @@ export class UsuarioController {
       });
       const resultado = await this.repository.agregarUsuario(usuario);
       if (resultado.affectedRows == 1) {
-        console.log(`Producto agregado con el id: ${resultado.insertId}`);
+        console.log(`usuario agregado con el id: ${resultado.insertId}`);
       } else {
-        console.log("El producto no se agrego");
+        console.log("El usuario no se agrego");
       }
       return resultado;
     } catch (error: any) {
-      console.log("Ha ocurrido un error al guardar el producto.", error?.message);
+      console.log("Ha ocurrido un error al guardar el usuario.", error?.message);
       return error;
     }
   }
