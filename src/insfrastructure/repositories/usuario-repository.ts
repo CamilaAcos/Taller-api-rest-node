@@ -3,16 +3,16 @@ import { getPoolConnection } from "./data-source";
 import { FieldPacket, Pool, ResultSetHeader,RowDataPacket } from "mysql2";
 
 export class UsuarioRepository { 
-    async agregarUsuario (usuario: Usuario) {
+    async agregarUsuario (usuario: Usuario): Promise<ResultSetHeader> {
         const connection = getPoolConnection();
         const querySql = `INSERT INTO usuarios (nombre, email, telefono) VALUES (?, ?, ?)`
-        const values = [
+        const values: Array<string|number> = [
             usuario.nombre,
             usuario.email,
             usuario.telefono,
         ];
-        const result = await connection.query(querySql, values);
-        return [0];
+        const result: [ResultSetHeader, FieldPacket[]] = await connection.query(querySql, values);
+        return result[0];
 
     } 
 
