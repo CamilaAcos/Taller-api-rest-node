@@ -8,7 +8,7 @@ export const routes = () => {
   const router = Express.Router();
 
 
-  // Endpoint o url: http://localhost:3000/hola-mundo
+  // Endpoint o url: http://localhost:3006/hola-mundo
   router.get("/", (req, res) => {
     res.send({ message: "Bienvenido a la API " });
   });

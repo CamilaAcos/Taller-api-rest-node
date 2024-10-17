@@ -7,11 +7,9 @@ import middleware404 from "./src/insfrastructure/modules/api-rest/middleware/mid
 const createServer = () => {
   const app = Express(); 
  
-  // Middleware: Para parsear el json de las solicitudes
   app.use(Express.json());
  
-  // Generación del primero recurso:
-  // Endpoint o url: http://localhost:3000/hola-mundo
+ 
   app.get("/api", (req, res) => {
     res.send({ message: "Bienvenido a la API " });
   });
