@@ -1,6 +1,4 @@
 import { QueryResult, ResultSetHeader, FieldPacket } from "mysql2";
-import { Vehiculo } from "../../domain/models/vehiculo";
-import { VehiculoRepository } from "../repositories/vehiculos-repository";
 import { ReservaRepository } from "../repositories/reservas-repository";
 import { Reserva } from "../../domain/models/reserva";
 
@@ -52,37 +50,36 @@ export class ReservaController {
         
       });
       const result = await this.repository.modificarReserva(reserva);
-      if (result.affectedRows === 1) {
-        console.log("Vehiculo actualizado");
+      if (result && result.affectedRows === 1) {
+        console.log("Reserva actualizada");
       } else {
-      
-        console.log("No se pudo actualizar el Vehiculo");
+        console.log("No se pudo actualizar la reserva");
       }
       return result;
     } catch (error) {
-      console.log("Ha ocurrido un error actualizando el Vehiculo.");
+      console.log("Ha ocurrido un error actualizando la reserva");
       return error;
     }
   }
 
   async obtener() {
     try {
-      const resultado = await this.repository.obtenerVehiculos();
+      const resultado = await this.repository.obtenerReservas();
       console.log("Vehiculos obtenidos");
       console.log(resultado);
       return resultado;
     } catch (error) {
-      console.log("Ha ocurrido un error al consultando los Vehiculos.");
+      console.log("Ha ocurrido un error al consultando las reservas");
       return error;
     }
   }
 
   async eliminar(id: number) {
-    const resultado: ResultSetHeader = await this.repository.eliminarVehiculo(id);
+    const resultado: ResultSetHeader = await this.repository.eliminarReserva(id);
     if (resultado.affectedRows == 1) {
-      return { ok: true, message: "vehiculo eliminado" };
+      return { ok: true, message: "Reserva eliminada" };
     } else {
-      return { ok: false, message: "No se pudo eliminar el vehiculo" };
+      return { ok: false, message: "No se pudo eliminar la reserva" };
     }
   }
 }
