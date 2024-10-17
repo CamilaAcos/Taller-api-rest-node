@@ -74,19 +74,13 @@ export class UsuarioController {
     }
   }
 
-  eliminar(id: number) {
-    this.repository
-      .eliminarUsuario(id)
-      .then((result: ResultSetHeader) => {
-        if (result.affectedRows == 1) {
-          console.log(`usuario eliminado`);
-        } else {
-          console.log("No se pudo eliminar el usuario");
-        }
-      })
-      .catch((error) => {
-        console.log("Ha ocurrido un error eliminando el usuario.");
-        console.log(error);
-      });
+  async eliminar(id: number) {
+    const resultado: ResultSetHeader = await this.repository.eliminarUsuario(id);
+    if (resultado.affectedRows == 1) {
+      return { ok: true, message: "Producto eliminado" };
+    } else {
+      return { ok: false, message: "No se pudo eliminar el producto" };
+    }
   }
+
 }

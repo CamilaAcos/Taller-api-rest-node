@@ -3,17 +3,16 @@ import { getPoolConnection } from "./data-source";
 import { FieldPacket, Pool, ResultSetHeader,RowDataPacket } from "mysql2";
 
 export class VehiculoRepository { 
-    async agregarVehiculo (vehiculo: Vehiculo) {
+    async agregarVehiculo (vehiculo: Vehiculo): Promise<ResultSetHeader> {
         const connection = getPoolConnection();
         const querySql = `INSERT INTO vehiculos (id, marca, modelo, year) VALUES (?, ?, ?, ?)`
-        const values = [
-            vehiculo.id,
+        const values: Array< string| number> = [
             vehiculo.marca,
             vehiculo.modelo,
             vehiculo.year
         ];
-        const result = await connection.query(querySql, values);
-        return [0];
+        const result:  [ResultSetHeader, FieldPacket[]]= await connection.query(querySql, values);
+        return result [0];
 
     } 
 
@@ -27,13 +26,13 @@ export class VehiculoRepository {
     async modificarVehiculo( vehiculo: Vehiculo) {
         const connection = getPoolConnection();
         const querySql = `UPDATE vehiculos SET marca = ?, modelo = ?, year = ? where id = ? `;
-        const values =  [
+        const values = [
             vehiculo.marca,
             vehiculo.modelo,
             vehiculo.year,
             vehiculo.id
         ];
-        const result = await connection.query(querySql,values);
+        const result :  [ResultSetHeader, FieldPacket[]]= await connection.query(querySql,values);
         return result [0];
 
     }
@@ -42,7 +41,7 @@ export class VehiculoRepository {
         const connection = getPoolConnection();
         const querySql = `DELETE FROM Vehiculos WHERE id = ?`;
         const values = [idVehiculo];
-        const result = await connection.query(querySql, values);
+        const result: [ResultSetHeader, FieldPacket[]] = await connection.query(querySql, values);
         return result [0];
     }
 }

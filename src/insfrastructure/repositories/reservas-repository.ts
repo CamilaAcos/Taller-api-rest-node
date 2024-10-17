@@ -1,9 +1,9 @@
 import { Reserva } from "../../domain/models/reserva";
 import { getPoolConnection } from "./data-source";
-
+import { FieldPacket, Pool, ResultSetHeader, RowDataPacket } from "mysql2";
 
 export class ReservaRepository { 
-    async agregarReserva (reserva: Reserva) {
+    async agregarReserva (reserva: Reserva) : Promise<ResultSetHeader> {
         const connection = getPoolConnection();
         const querySql = `INSERT INTO reservas (usuario_id, vehiculo_id, fecha) VALUES (?, ?, ?)`
         const values = [
@@ -11,8 +11,8 @@ export class ReservaRepository {
             reserva.vehiculo_id,
             reserva.fecha,
         ];
-        const result = await connection.query(querySql, values);
-        return [0];
+        const result: [ResultSetHeader, FieldPacket[]] = await connection.query(querySql, values);
+        return result [0];
 
     } 
 
@@ -28,18 +28,18 @@ export class ReservaRepository {
         const queryUsuarioId = `SELECT id FROM usuarios WHERE id  = usuario_id`
         if( queryUsuarioId) {
             const querySql = `UPDATE reservas SET usuario_id = ?, vehiculo_id = ?, year = ? WHERE id = ? `;
-            const values =  [
+            const values=  [
                 reserva.usuario_id,
                 reserva.vehiculo_id,
                 reserva.fecha,
                 reserva.id,
             ];
-            const result = await connection.query(querySql,values);
+            const result:  [ResultSetHeader, FieldPacket[]] = await connection.query(querySql,values);
         return result [0];
 
         }else{
             console.log("Usuario_id no existe")
-            return
+            return null
         }
     }
 
@@ -47,7 +47,7 @@ export class ReservaRepository {
         const connection = getPoolConnection();
         const querySql = `DELETE FROM Reservas WHERE id = ?`;
         const values = [idReserva];
-        const result = await connection.query(querySql, values);
+        const result: [ResultSetHeader, FieldPacket[]] = await connection.query(querySql, values);
         return result [0];
     }
    
