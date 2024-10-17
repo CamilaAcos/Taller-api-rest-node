@@ -1,5 +1,5 @@
 import { Vehiculo } from "../../domain/models/vehiculo";
-import { getPoolConnection } from "./data-source";
+import { getPoolConnection } from "./data-base";
 import { FieldPacket, Pool, ResultSetHeader,RowDataPacket } from "mysql2";
 
 export class VehiculoRepository { 

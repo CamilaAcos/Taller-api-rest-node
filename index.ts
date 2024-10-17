@@ -1,12 +1,11 @@
-// ENCARGADO DE CREAR EL SERVIDOR
-// El servidor va a proveer el api-rest
+
  
 import Express from "express";
-//import { routes } from "./src/infrastructure/modules/api-rest/routers/index.router";
-//import middleware404 from "./src/infrastructure/modules/api-rest/middleware/middleware";
+import { routes} from "../Taller-api-rest-node/src/insfrastructure/modules/api-rest/routers/index.router";
+import middleware404 from "./src/insfrastructure/modules/api-rest/middleware/middleware"; 
  
 const createServer = () => {
-  const app = Express(); // Se crea la instancia del servidor
+  const app = Express(); 
  
   // Middleware: Para parsear el json de las solicitudes
   app.use(Express.json());
@@ -23,7 +22,7 @@ const createServer = () => {
   app.use(middleware404);
  
   // Generar 
-  const PORT = process.env.PORT || 3000;
+  const PORT = process.env.PORT || 3006;
   app.listen(PORT, () => {
     console.log(`Servidor Api-Rest ejecutando: http://localhost:${PORT}`);
   });
