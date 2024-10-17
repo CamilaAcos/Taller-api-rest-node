@@ -49,7 +49,7 @@ export class UsuarioController {
         telefono: payload.telefono,
         
       });
-      const resultado = await this.repository.modificarProductos(producto);
+      const resultado = await this.repository.modificarUsuario(usuario);
       if (resultado.affectedRows === 1) {
         console.log("Producto actualizado");
       } else {

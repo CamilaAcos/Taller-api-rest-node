@@ -32,9 +32,8 @@ export class UsuarioRepository {
             usuario.telefono,
             usuario.id
         ];
-        const result = await connection.query(querySql,values);
+        const result = await connection.query<ResultSetHeader>(querySql,values);
         return result [0];
-        
     }
 
     async eliminarUsuario (idUsuario: number) {
