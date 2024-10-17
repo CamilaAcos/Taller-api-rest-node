@@ -36,11 +36,11 @@ export class UsuarioRepository {
         return result [0];
     }
 
-    async eliminarUsuario (idUsuario: number) {
+    async eliminarUsuario (idUsuario: number): Promise<ResultSetHeader> {
         const connection = getPoolConnection();
         const querySql = `DELETE FROM usuarios WHERE id = ?`;
         const values = [idUsuario];
-        const result = await connection.query(querySql, values);
+        const result: [ResultSetHeader, FieldPacket[]] = await connection.query(querySql, values);
         return result [0];
     }
 }

@@ -35,7 +35,7 @@ export class UsuarioController {
     }
   }
 
-  async actualizar(payload: {
+  async modificar(payload: {
     id: number;
     nombre: string;
     email: string;
@@ -51,75 +51,41 @@ export class UsuarioController {
       });
       const resultado = await this.repository.modificarUsuario(usuario);
       if (resultado.affectedRows === 1) {
-        console.log("Producto actualizado");
+        console.log("usuario actualizado");
       } else {
-        console.log("No se pudo actualizar el producto");
+        console.log("No se pudo actualizar el usuario");
       }
       return resultado;
     } catch (error) {
-      console.log("Ha ocurrido un error actualizando el producto.");
-      return error;
-    }
-  }
-
-  async actualizarCantidad(payload: { id: number; cantidad_disponible: number }) {
-    try {
-      const resultado = await this.repository.modificarCantidadProducto(
-        payload.id,
-        payload.cantidad_disponible
-      );
-      if (resultado.affectedRows === 1) {
-        console.log("Cantidad actualizada");
-      } else {
-        console.log("No se pudo actualizar la cantidad");
-      }
-      return resultado;
-    } catch (error) {
-      console.log("Ha ocurrido un error actualizando la cantidad.");
+      console.log("Ha ocurrido un error actualizando el usuario.");
       return error;
     }
   }
 
   async obtener() {
     try {
-      const resultado = await this.repository.obtenerProductos();
-      console.log("Productos obtenidos");
+      const resultado = await this.repository.obtenerUsuarios();
+      console.log("Usuarios obtenidos");
       console.log(resultado);
       return resultado;
     } catch (error) {
-      console.log("Ha ocurrido un error al consultando los productos.");
-      return error;
-    }
-  }
-
-  async obtenerPorId(id: number) {
-    try {
-      const resultado = await this.repository.obtenerProducto(id);
-      if (resultado.length == 1) {
-        console.log("Productos obtenido");
-        console.log(resultado[0]);
-      } else {
-        console.log("No se encontro el producto");
-      }
-      return resultado;
-    } catch (error) {
-      console.log("Ha ocurrido un error al consultando el producto.");
+      console.log("Ha ocurrido un error al consultando los usuarios.");
       return error;
     }
   }
 
   eliminar(id: number) {
     this.repository
-      .eliminarProducto(id)
-      .then((resultado: ResultSetHeader) => {
-        if (resultado.affectedRows == 1) {
-          console.log(`Producto eliminado`);
+      .eliminarUsuario(id)
+      .then((result: ResultSetHeader) => {
+        if (result.affectedRows == 1) {
+          console.log(`usuario eliminado`);
         } else {
-          console.log("No se pudo eliminar el producto");
+          console.log("No se pudo eliminar el usuario");
         }
       })
       .catch((error) => {
-        console.log("Ha ocurrido un error eliminando el producto.");
+        console.log("Ha ocurrido un error eliminando el usuario.");
         console.log(error);
       });
   }
