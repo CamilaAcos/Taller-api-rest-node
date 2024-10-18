@@ -5,11 +5,11 @@ import { FieldPacket, Pool, ResultSetHeader, RowDataPacket } from "mysql2";
 export class ReservaRepository { 
     async agregarReserva (reserva: Reserva) : Promise<ResultSetHeader> {
         const connection = getPoolConnection();
-        const querySql = `INSERT INTO reservas (usuario_id, vehiculo_id, fecha) VALUES (?, ?, ?)`
+        const querySql = `INSERT INTO reservas (usuario_id, vehiculo_id, fecha_reserva) VALUES (?, ?, ?)`
         const values = [
             reserva.usuario_id,
             reserva.vehiculo_id,
-            reserva.fecha,
+            reserva.fecha_reserva,
         ];
         const result: [ResultSetHeader, FieldPacket[]] = await connection.query(querySql, values);
         return result [0];
@@ -27,11 +27,11 @@ export class ReservaRepository {
         const connection = getPoolConnection();
         const queryUsuarioId = `SELECT id FROM usuarios WHERE id  = usuario_id`
         if( queryUsuarioId) {
-            const querySql = `UPDATE reservas SET usuario_id = ?, vehiculo_id = ?, year = ? WHERE id = ? `;
+            const querySql = `UPDATE reservas SET usuario_id = ?, vehiculo_id = ?, fecha_reserva = ? WHERE id = ? `;
             const values=  [
                 reserva.usuario_id,
                 reserva.vehiculo_id,
-                reserva.fecha,
+                reserva.fecha_reserva,
                 reserva.id,
             ];
             const result:  [ResultSetHeader, FieldPacket[]] = await connection.query(querySql,values);

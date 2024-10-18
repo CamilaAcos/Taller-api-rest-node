@@ -5,7 +5,7 @@ import { FieldPacket, Pool, ResultSetHeader,RowDataPacket } from "mysql2";
 export class VehiculoRepository { 
     async agregarVehiculo (vehiculo: Vehiculo): Promise<ResultSetHeader> {
         const connection = getPoolConnection();
-        const querySql = `INSERT INTO vehiculos (id, marca, modelo, year) VALUES (?, ?, ?, ?)`
+        const querySql = `INSERT INTO vehiculos (marca, modelo, year) VALUES (?, ?, ?)`
         const values: Array< string| number> = [
             vehiculo.marca,
             vehiculo.modelo,

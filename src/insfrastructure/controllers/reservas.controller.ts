@@ -14,13 +14,13 @@ export class ReservaController {
   async agregar(payload: {
     usuario_id: number;
     vehiculo_id: number;
-    fecha: Date;
+    fecha_reserva: Date;
     }) {
     try {
       const reserva = new Reserva({
         usuario_id: payload.usuario_id,
         vehiculo_id: payload.vehiculo_id,
-        fecha: payload.fecha,
+        fecha_reserva: payload.fecha_reserva,
       });
       const resultado = await this.repository.agregarReserva(reserva);
       if (resultado.affectedRows == 1) {
@@ -39,14 +39,14 @@ export class ReservaController {
     id: number;
     usuario_id: number;
     vehiculo_id: number;
-    fecha: Date;
+    fecha_reserva: Date;
   }) {
     try {
       const reserva = new Reserva({
         id: payload.id,
         usuario_id: payload.usuario_id,
         vehiculo_id: payload.vehiculo_id,
-        fecha: payload.fecha,
+        fecha_reserva: payload.fecha_reserva,
         
       });
       const result = await this.repository.modificarReserva(reserva);
