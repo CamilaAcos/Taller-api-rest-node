@@ -25,7 +25,7 @@ export class ReservaRepository {
 
     async modificarReserva( reserva: Reserva) {
         const connection = getPoolConnection();
-        const queryUsuarioId = `SELECT id FROM usuarios WHERE id  = usuario_id`
+        const queryUsuarioId = `SELECT id FROM usuarios WHERE id  = ?`
         if( queryUsuarioId) {
             const querySql = `UPDATE reservas SET usuario_id = ?, vehiculo_id = ?, fecha_reserva = ? WHERE id = ? `;
             const values=  [

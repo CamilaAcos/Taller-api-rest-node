@@ -77,9 +77,9 @@ export class UsuarioController {
   async eliminar(id: number) {
     const resultado: ResultSetHeader = await this.repository.eliminarUsuario(id);
     if (resultado.affectedRows == 1) {
-      return { ok: true, message: "Producto eliminado" };
+      return { ok: true, message: "usuario eliminado" };
     } else {
-      return { ok: false, message: "No se pudo eliminar el producto" };
+      return { ok: false, message: "No se pudo eliminar el usuario" };
     }
   }
 

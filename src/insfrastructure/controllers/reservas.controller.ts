@@ -35,7 +35,7 @@ export class ReservaController {
     }
   }
 
-  async modificar(payload: {
+  async modificar(payload: { //no esta retornando el mensaje esperado cuando ingresamos un id que no existe
     id: number;
     usuario_id: number;
     vehiculo_id: number;
@@ -50,6 +50,7 @@ export class ReservaController {
         
       });
       const result = await this.repository.modificarReserva(reserva);
+      console.log(result, "este es el error ")
       if (result && result.affectedRows === 1) {
         console.log("Reserva actualizada");
       } else {
