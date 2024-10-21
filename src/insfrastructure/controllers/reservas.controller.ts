@@ -23,6 +23,11 @@ export class ReservaController {
         fecha_reserva: payload.fecha_reserva,
       });
       const resultado = await this.repository.agregarReserva(reserva);
+
+      if (resultado === null) {
+        console.log("El usuario o vehículo no existen");
+        return null;
+      }
       if (resultado.affectedRows == 1) {
         console.log(`Reserva agregada con el id: ${resultado.insertId}`);
       } else {

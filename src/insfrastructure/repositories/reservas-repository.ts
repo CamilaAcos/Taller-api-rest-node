@@ -3,9 +3,26 @@ import { getPoolConnection } from "./data-base";
 import { FieldPacket, Pool, ResultSetHeader, RowDataPacket } from "mysql2";
 
 export class ReservaRepository { 
-    async agregarReserva (reserva: Reserva) : Promise<ResultSetHeader> {
+    async agregarReserva (reserva: Reserva) : Promise<ResultSetHeader| null> {
         const connection = getPoolConnection();
-        const querySql = `INSERT INTO reservas (usuario_id, vehiculo_id, fecha_reserva) VALUES (?, ?, ?)`
+
+        const queryUsuarioId = `SELECT id FROM usuarios WHERE id =?`;
+        const [usuriosRows]:  [RowDataPacket[], FieldPacket[]] = await connection.query(queryUsuarioId, [reserva.usuario_id])
+       
+        if(usuriosRows.length === 0){
+            console.log("Usuario_id no existe")
+            return null;
+        }
+
+        const queryVehiculoId = `SELECT id FROM vehiculos WHERE id = ?`;
+        const [vehiculoRows]: [RowDataPacket[], FieldPacket[]] = await connection.query(queryVehiculoId, [reserva.vehiculo_id]);
+
+        if (vehiculoRows.length === 0) {
+            console.log("Vehiculo_id no existe");
+            return null; // No continúa si el vehículo no existe
+        }
+         
+        const [querySql] = `INSERT INTO reservas (usuario_id, vehiculo_id, fecha_reserva) VALUES (?, ?, ?)`
         const values = [
             reserva.usuario_id,
             reserva.vehiculo_id,
