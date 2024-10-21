@@ -22,7 +22,7 @@ export class ReservaRepository {
             return null; // No continúa si el vehículo no existe
         }
          
-        const [querySql] = `INSERT INTO reservas (usuario_id, vehiculo_id, fecha_reserva) VALUES (?, ?, ?)`
+        const querySql = `INSERT INTO reservas (usuario_id, vehiculo_id, fecha_reserva) VALUES (?, ?, ?)`
         const values = [
             reserva.usuario_id,
             reserva.vehiculo_id,
